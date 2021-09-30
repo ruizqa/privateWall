@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Private Wall</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+        <div class="container">
+          <a href="#" class="navbar-brand">Coding Dojo Wall</a>
+  
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a href="/logout" class="nav-link">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <section class="py-5"></section>
+
+
+    <section>
+        <div class="container-fluid">
+           
+              
+       
+            <div class="row fs-4 g-5 text-center">
+                
+                    <div class="col align-items-center">
+                      <div class="text-primary h1 my-5">Messages for You</div>
+                        {% if user.messages: %}
+                            {% for message in user.messages %}
+                            <div class="row text-center align-items-center my-2">
+                              <div class="col-4">
+                                {{ message.sender.first_name }} said:
+                              </div>
+                              <div class="col-8 text-primary small">
+                                  ({{ message.timediff }})
+                              </div>
+                            </div>
+                            <div class="row align-items-center text-center my-5">
+                              <div class="col-9">
+                                {{ message.content }}
+                              </div>
+                              <div class="col-3">
+                                <a href="/delete/{{message.id}}"><i class="bi bi-trash"></i></a>
+                              </div>
+                              
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+    
+                    
+    
+                    <div class="col">
+                      <div class="text-primary h1 my-5">Send Messages</div>
+                      {% if users: %}
+                          {% for person in users %}
+                          <div class="row text-center align-items-center my-5">
+                              <div class="col-3">
+                                {{ person.first_name }}
+                              </div>
+                              <div class="col-6">
+                                <form action="/send" method="POST">
+                                  <input name= "receiver_id" type="hidden" value="{{person.id}}">
+                                  <input name= "sender_id" type="hidden" value="{{user.id}}">
+                                  <textarea name="content" class="p-2" style="width:100%" rows=3></textarea>
+                              </div>
+                              <div class="col-3">
+                                <input type="submit" class="btn btn-primary">
+                                </form>
+                              </div>
+
+                          </div>
+                          {% endfor %}
+                      {% endif %}
+
+                    </div>
+    
+                    
+                
+    
+            </div>
+            
+        </div>
+    </section>
+
+
+    <section class="py-5 my-5"></section>
+
+    <footer class="col-12 p-1 bg-dark text-white text-center position-fixed bottom-0">
+            <p class="lead">Coding Dojo Web Dev Bootcamp</p>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
